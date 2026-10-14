@@ -1,30 +1,37 @@
-// Инициализируем VK Bridge
-vkBridge.send("VKWebAppInit");
-
-// Автоматически получаем имя и аватарку при запуске приложения
-vkBridge.send("VKWebAppGetUserInfo").then((data) => {
-    if (data) {
-        document.getElementById('user-avatar').src = data.photo_100;
-        document.getElementById('input-name').value = data.first_name;
+// Инициализируем VK Bridge для связи с социальной сетью
+vkBridge.send('VKWebAppInit')
+  .then(() => {
+    console.log('VK Bridge успешно инициализирован');
+    // Запрашиваем персональные данные пользователя (Имя, Фамилия, Аватарка)
+    return vkBridge.send('VKWebAppGetUserInfo');
+  })
+  .then((userInfo) => {
+    if (userInfo) {
+      // Подставляем имя и аватарку в наше белое окошко
+      document.getElementById('user-avatar').src = userInfo.photo_200;
+      document.getElementById('input-name').value = `${userInfo.first_name} ${userInfo.last_name}`;
     }
-}).catch((error) => console.log(error));
-
-// Автоматически запрашиваем номер телефона пользователя из ВК (потребует одобрения пользователя)
-vkBridge.send("VKWebAppGetPhoneNumber").then((data) => {
-    if (data && data.phone_number) {
-        document.getElementById('input-phone').value = data.phone_number;
+    // Запрашиваем номер телефона пользователя из его профиля ВК
+    return vkBridge.send('VKWebAppGetPhoneNumber');
+  })
+  .then((phoneData) => {
+    if (phoneData && phoneData.phone_number) {
+      // Автоматически вставляем телефон в поле ввода
+      document.getElementById('input-phone').value = phoneData.phone_number;
     }
-}).catch((error) => console.log(error));
+  })
+  .catch((error) => {
+    console.error('Ошибка при работе с VK Bridge:', error);
+  });
 
-// Логика кнопки "Отправить" (переключение экранов)
+// Логика переключения экранов при нажатии на кнопку "Отправить"
 document.getElementById('btn-submit').addEventListener('click', () => {
-    document.getElementById('screen-form').classList.add('hidden');
-    document.getElementById('screen-thanks').classList.remove('hidden');
+  document.getElementById('screen-form').classList.add('hidden');
+  document.getElementById('screen-thanks').classList.remove('hidden');
 });
 
-// Логика кнопки "Перейти на сайт" (открытие вашего ВК Видео)
+// Логика перехода на ваше ВК Видео при нажатии на вторую кнопку
 document.getElementById('btn-go').addEventListener('click', () => {
-    vkBridge.send("VKWebAppOpenURL", {
-        "url": "https://vk.com" // ЗАМЕНИТЕ НА ВАШУ ССЫЛКУ НА ВК ВИДЕО
-    });
+  // Замените эту ссылку на точный адрес вашего ролика из ВК Видео, если нужно!
+  window.open('https://vkvideo.ru', '_blank');
 });
