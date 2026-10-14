@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бизнес-система</title>
+    <!-- Подключаем библиотеку VK Bridge для связи с ВК -->
+    <script src="https://unpkg.com"></script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif; background: #ebedf0; display: flex; justify-content: center; padding: 20px; }
+        .modal { background: white; border-radius: 12px; width: 100%; max-width: 500px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); overflow: hidden; }
+        .header { background: #4986cc; height: 50px; position: relative; }
+        .avatar-container { position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%); }
+        .avatar { width: 50px; height: 50px; border-radius: 50%; border: 3px solid white; }
+        .content { padding: 40px 24px 24px 24px; text-align: center; }
+        h2 { font-size: 18px; text-transform: uppercase; margin-bottom: 20px; color: #000; }
+        .text { text-align: left; font-size: 14px; line-height: 1.5; color: #000; margin-bottom: 20px; }
+        .input-group { text-align: left; margin-bottom: 15px; }
+        label { font-size: 12px; color: #818c99; display: block; margin-bottom: 5px; }
+        input { width: 100%; padding: 12px; border: 1px solid #d3d9de; border-radius: 8px; box-sizing: border-box; font-size: 15px; }
+        .btn { width: 100%; background: #4986cc; color: white; padding: 14px; border: none; border-radius: 8px; font-size: 15px; font-weight: 500; cursor: pointer; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+<div class="modal">
+    <div class="header">
+        <div class="avatar-container">
+            <img id="user-avatar" class="avatar" src="" alt="Avatar">
+        </div>
+    </div>
+    
+    <!-- ЭКРАН 1: СБОР ДАННЫХ -->
+    <div id="screen-form" class="content">
+        <h2>Бизнес-система: доступ к видео</h2>
+        <div class="text">
+            Нажмите кнопку ниже, чтобы открыть короткое видео и узнать секрет нашей бизнес-системы.<br><br>
+            Всего 3 простых правила для вашего успеха:<br>
+            🕒 2-3 часа в день свободного времени.<br>
+            📋 Чёткое выполнение готовой инструкции.<br>
+            💰 Доход от 9500 рублей в день на вашу карту.<br><br>
+            Смотрите видео, внедряйте систему и забирайте свой результат!
+        </div>
+        <div class="input-group">
+            <label>Имя</label>
+            <input type="text" id="input-name" readonly>
+        </div>
+        <div class="input-group">
+            <label>Номер телефона</label>
+            <input type="text" id="input-phone" readonly>
+        </div>
+        <button class="btn" id="btn-submit">Отправить</button>
+    </div>
+
+    <!-- ЭКРАН 2: СПАСИБО -->
+    <div id="screen-thanks" class="content hidden">
+        <h2>Бизнес-система: доступ к видео</h2>
+        <div style="font-size: 40px; color: #4986cc; margin-bottom: 10px;">✓</div>
+        <h3>Спасибо!</h3>
+        <div class="text" style="text-align: center;">
+            Доступ открыт.<br>
+            Нажмите синюю кнопку «Перейти на сайт» ниже, чтобы открыть ВК Видео.<br>
+            ⚡ Из этого видео вы узнаете как работает наша бизнес модель.<br>
+            Внимание: ролик начнется сразу, обязательно включите звук!
+        </div>
+        <button class="btn" id="btn-go">Перейти на сайт</button>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
